@@ -122,3 +122,4 @@ def to_iupac():
 
 def find_polyatomic(specie: type(Specie)):
     length: int = len(specie.composing_groups)
+    pass
