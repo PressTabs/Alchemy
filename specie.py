@@ -28,7 +28,7 @@ def interpret(specie: str):
                 while specie[ind] != ")":
                     ind += 1
 
-                return specie[start_index:ind+1], ind+1
+                return specie[start_index:ind + 1], ind + 1
 
             if char.isupper():
                 group += char
@@ -69,7 +69,7 @@ def interpret(specie: str):
         if subscript != "":
             return int(subscript), ind
 
-        return 0, ind
+        return 1, ind
 
     def find_charge(start_index: int) -> int:
         if not (start_index < len(specie)):
@@ -102,6 +102,22 @@ def interpret(specie: str):
 
         groups.append(group)
         subscripts.append(subscript)
+
+
+def to_formula(specie: type(Specie)) -> str:
+    no_charge = "".join([f"{specie.composing_groups[i]}{specie.subscripts[i] if specie.subscripts[i] > 1 else ''}"
+                         for i in range(len(specie.composing_groups))])
+    if specie.charge == 0:
+        return no_charge
+    charge = f"{specie.charge}+" if specie.charge > 0 else f"{-specie.charge}-"
+    if abs(specie.charge) == 1:
+        charge = charge[1:]
+
+    return f"{no_charge}[{charge}]"
+
+
+def to_iupac():
+    pass
 
 
 def find_polyatomic(specie: type(Specie)):
