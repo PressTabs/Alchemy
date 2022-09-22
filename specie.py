@@ -76,9 +76,13 @@ def interpret(specie: str):
             return 0
 
         pot_charge: str = specie[start_index:-1].strip("[").strip("]")
+        sign: int = +1 if pot_charge.find("+") != -1 else -1 if pot_charge.find("-") != -1 else 0
+        pot_charge = pot_charge.replace("+", "").replace("-", "")
+        if len(pot_charge) == 0:
+            return sign
         try:
             charge = int(pot_charge)
-            return charge
+            return sign * charge
         except ValueError:
             return 0
 
@@ -89,6 +93,7 @@ def interpret(specie: str):
         group, index = find_group(index)
         subscript, index = find_subscript(index)
 
+        #   Later add code to find state using "chemical{state}" notation
         if group == "":
             charge = find_charge(index)
             decomposed_specie = Specie(composing_groups=groups, subscripts=subscripts, charge=charge)
