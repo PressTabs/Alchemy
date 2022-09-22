@@ -102,3 +102,7 @@ def interpret(specie: str):
 
         groups.append(group)
         subscripts.append(subscript)
+
+
+def find_polyatomic(specie: type(Specie)):
+    length: int = len(specie.composing_groups)
